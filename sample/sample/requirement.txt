@@ -1,0 +1,26 @@
+Product Requirements Document (PRD): Checkout & Payment Engine
+Document ID: PRD-CHECKOUT-2026
+Source: vvkmj/myco-prd-demo (docs/PRD.md)
+Pull Request: https://github.com/vvkmj/myco-prd-demo/pull/3
+
+1. [REQ-CHECKOUT-1] Coupon Code Validation & Expiry Verification (Mandatory):
+   - The checkout engine must validate coupon codes before applying any discounts to the order subtotal.
+   - If coupon is expired, raise/return an explicit error 'EXPIRED_COUPON'.
+   - If coupon is unrecognized or unknown, raise/return an error 'INVALID_COUPON'.
+   - Valid coupons must apply percentage discounts accurately to positive order subtotal.
+   - Automated unit tests MUST verify expired coupon rejection and valid discount application.
+
+2. [REQ-CHECKOUT-2] State Sales Tax Calculation (Mandatory):
+   - Sales tax must be computed on the post-discount subtotal using state rate rules:
+     * California (CA): 8.25% (0.0825)
+     * New York (NY): 8.875% (0.08875)
+     * Tax-exempt states (e.g. DE, OR): 0%
+   - Automated unit tests MUST test multiple state rates and zero-tax states.
+
+3. [REQ-CHECKOUT-3] Asynchronous Receipt Email Dispatch (Recommended):
+   - Upon completed checkout, enqueue email receipt event with orderId and customer email.
+   - Failures in email dispatch must not abort or roll back successful checkout.
+
+Merge Policy & Gate:
+- PR CANNOT merge if any mandatory requirement (REQ-CHECKOUT-1, REQ-CHECKOUT-2) is unimplemented or violates acceptance criteria.
+- Required unit tests for coupon expiry or tax calculations must be present.

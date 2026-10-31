@@ -1,0 +1,16 @@
+{
+  "title": "feat: non-compliant PR to verify branch protection blocking",
+  "url": "https://github.com/vvkmj/myco-prd-demo/pull/3",
+  "number": 3,
+  "author": "vvkmj",
+  "body": "This PR violates mandatory requirements to test merge blocking.",
+  "base_ref": "main",
+  "head_ref": "feat/non-compliant-blocked",
+  "files": [
+    {
+      "filename": "src/checkout.ts",
+      "status": "modified",
+      "patch": "@@ -1,13 +1 @@\n-export function processCheckout(request: any): any {\n-  // VIOLATION: Bypasses coupon validation and gives unconditional discount\n-  const subtotal = 100;\n-  const discount = 50; \n-  return {\n-    orderId: request.orderId,\n-    subtotal,\n-    discount,\n-    taxableAmount: 50,\n-    tax: 0,\n-    total: 50\n-  };\n-}\n+export function badCheckout() { return { blocked: true }; }"
+    }
+  ]
+}
