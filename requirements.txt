@@ -1,0 +1,10 @@
+langgraph
+langchain-core
+langchain-groq
+groq
+langchain-google-genai
+streamlit
+python-dotenv
+json-repair
+networkx
+pyflakes
